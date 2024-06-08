@@ -1,3 +1,5 @@
+This project uses Robot Framework and selenium to run browser specific operations.
+
 # Setup
 
 Make sure python version 3.10 or 3.11 is installed.
