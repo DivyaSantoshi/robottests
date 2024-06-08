@@ -18,12 +18,14 @@ Initialize system
 
 2. Customer sorts product items
     Given standard customer is logged in
-    When the customer sorts available products in product view
+    When When the customer sorts available products in product view/high to low
+    Then the products are ordered according to the chosen reverse sort method
+    When When the customer sorts available products in product view/low to high
     Then the products are ordered according to the chosen sort method
 
 3. User is locked out from the platform
     #Given customer is a locked out customer
     When the customer attempts to login using proper credentials
     Then login fails
-    And the customer is presented with error state    
-
+    And the customer is presented with error state
+    

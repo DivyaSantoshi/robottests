@@ -29,9 +29,26 @@ The Purchase Is Successful
     Scroll Element Into View    //*[@id="finish"]
     Click Button    //button[contains(text(), 'Finish')]
     Page Should Contain    Thank you for your order!
-When the customer sorts available products in product view    #2. Customer Sorts Product Item
+When the customer sorts available products in product view/high to low    #2. Customer Sorts Product Item
     Go To    ${Products}
-    Click Element  //*[@id="header_container"]/div[2]/div/span/select
+    Click Element  //*[@id="header_container"]/div[2]//select
+    Select From List By Label   //select[@class="product_sort_container"]    Price (high to low)
+Then the products are ordered according to the chosen reverse sort method
+    ${price_elements}=    Get WebElements    css:.inventory_item_price
+    
+    @{prices}=    Create List
+    FOR    ${element}    IN    @{price_elements}
+           ${price_text}=    Get Text    ${element}
+           ${price}=    Convert To Number   ${price_text}[1:]
+           Append To List    ${prices}    ${price}
+    END
+       ${cloned_prices}=    Copy List    ${prices}
+       Sort List    ${cloned_prices}
+       Reverse List    ${cloned_prices}
+       Should Be Equal    ${prices}    ${cloned_prices}
+When the customer sorts available products in product view/low to high    #2. Customer Sorts Product Item
+    Go To    ${Products}
+    Click Element  //*[@id="header_container"]/div[2]//select
     Select From List By Label   //select[@class="product_sort_container"]    Price (low to high)
 Then the products are ordered according to the chosen sort method
     ${price_elements}=    Get WebElements    css:.inventory_item_price
@@ -42,9 +59,10 @@ Then the products are ordered according to the chosen sort method
            ${price}=    Convert To Number   ${price_text}[1:]
            Append To List    ${prices}    ${price}
     END
-       ${sorted_prices}=    Copy List    ${prices}
-       Sort List    ${sorted_prices}
-       Should Be Equal    ${prices}    ${sorted_prices}
+       ${cloned_prices}=    Copy List    ${prices}
+       Sort List    ${cloned_prices}
+       Should Be Equal    ${prices}    ${cloned_prices}
+
 
 When the customer attempts to login using proper credentials    #3.User is locked out from the platform
     Open Browser    ${URL}    ${Browser}
