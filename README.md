@@ -2,7 +2,7 @@ This project uses Robot Framework and selenium to run browser specific operation
 
 # Setup
 
-Make sure python version 3.10 or 3.11 is installed.
+Make sure Chrome browser is installed and Python version 3.10 or 3.11 is installed.
 ```
 git clone git@github.com:Anitakreddy/robottests.git
 cd robottests
